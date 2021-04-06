@@ -112,7 +112,6 @@ class GameTest {
 
         playerThreads.forEach(Thread::start);
         playerThreads.forEach(silentConsumer(Thread::join));
-
         assertEquals(expected, tableString(ticTacToe.table()));
     }
 }

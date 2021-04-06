@@ -25,8 +25,10 @@ public class TicTacToeImpl implements TicTacToe {
     }
 
     @Override
-    public final char[][] table() {
-        return table;
+    public synchronized final char[][] table() {
+        return Arrays.stream(table)
+                .map(char[]::clone)
+                .toArray(char[][]::new);
     }
 
     @Override
