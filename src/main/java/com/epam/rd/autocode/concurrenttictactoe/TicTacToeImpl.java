@@ -5,7 +5,8 @@ import java.util.Arrays;
 public class TicTacToeImpl implements TicTacToe {
     private final char[][] table = new char[3][3];
     private static final char START_CHAR = ' ';
-    private char lastMark;
+    private char lastMark = ' ';
+    private boolean finish;
 
     {
         fillTable();
@@ -34,5 +35,15 @@ public class TicTacToeImpl implements TicTacToe {
     @Override
     public synchronized char lastMark() {
         return lastMark;
+    }
+
+    @Override
+    public void finish() {
+        finish = true;
+    }
+
+    @Override
+    public boolean isFinished() {
+        return finish;
     }
 }
