@@ -1,6 +1,7 @@
 package com.epam.rd.autocode.concurrenttictactoe;
 
 public class PlayerImpl implements Player {
+    public static final char FIRST_TURN_MARK = 'X';
     private final TicTacToe ticTacToe;
     private final PlayerStrategy playerStrategy;
     private final char mark;
@@ -17,19 +18,32 @@ public class PlayerImpl implements Player {
     public void run() {
         synchronized (ticTacToe) {
             for (int i = 0; i < GAME_SIZE; i++) {
-                if (ticTacToe.lastMark() != EMPTY)
-                    ticTacToe.notify();
-                waitThread();
-                addMove();
-                if (isWin()) {
-                    break;
+                waitIfNotFirstTurnMark();
+                if (ticTacToe.isFinished()) {
+                    return;
+                }
+                if (ticTacToe.lastMark() == mark) {
+                    try {
+                        ticTacToe.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Move move = playerStrategy.computeMove(mark, ticTacToe);
+                    ticTacToe.setMark(move.row, move.column, mark);
+                    if (isWin()) {
+                        ticTacToe.finish();
+                        ticTacToe.notifyAll();
+                        return;
+                    }
+                    ticTacToe.notifyAll();
                 }
             }
         }
     }
 
-    private void waitThread() {
-        if (ticTacToe.lastMark() == mark && !isWin()) {
+    private void waitIfNotFirstTurnMark() {
+        if (isNotFirstTurnMark()) {
             try {
                 ticTacToe.wait();
             } catch (InterruptedException e) {
@@ -38,11 +52,8 @@ public class PlayerImpl implements Player {
         }
     }
 
-    private void addMove() {
-        if (!isWin()) {
-            Move move = playerStrategy.computeMove(mark, ticTacToe);
-            ticTacToe.setMark(move.row, move.column, mark);
-        }
+    private boolean isNotFirstTurnMark() {
+        return mark != FIRST_TURN_MARK && ticTacToe.lastMark() == EMPTY;
     }
 
     private boolean isWin() {

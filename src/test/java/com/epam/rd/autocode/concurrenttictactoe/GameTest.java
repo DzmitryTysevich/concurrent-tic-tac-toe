@@ -19,9 +19,9 @@ class GameTest {
     @Test
     void testTwoNWPlayers() {
         testCase("" +
-                "XOO\n" +
-                "XXX\n" +
-                "O  ",
+                        "XOO\n" +
+                        "XXX\n" +
+                        "O  ",
                 new NorthWestStrategy(), new NorthWestStrategy());
     }
 
@@ -37,27 +37,27 @@ class GameTest {
     @Test
     void testTwoNWvsES() {
         testCase("" +
-                "XXX\n" +
-                "X O\n" +
-                " OO",
+                        "XXX\n" +
+                        "X O\n" +
+                        " OO",
                 new NorthWestStrategy(), new EastSouthStrategy());
     }
 
     @Test
     void testTwoCircular() {
         testCase("" +
-                "OXO\n" +
-                " XX\n" +
-                " XO",
+                        "OXO\n" +
+                        " XX\n" +
+                        " XO",
                 new CircularStrategy(), new CircularStrategy());
     }
 
     @Test
     void testNWvsCircular() {
         testCase("" +
-                "XXO\n" +
-                "XOO\n" +
-                "X  ",
+                        "XXO\n" +
+                        "XOO\n" +
+                        "X  ",
                 new NorthWestStrategy(), new CircularStrategy());
 
     }
@@ -65,36 +65,36 @@ class GameTest {
     @Test
     void testESvsCircular() {
         testCase("" +
-                "OOX\n" +
-                " OX\n" +
-                " XX",
+                        "OOX\n" +
+                        " OX\n" +
+                        " XX",
                 new EastSouthStrategy(), new CircularStrategy());
     }
 
     @Test
     void testTwoRowByRow() {
         testCase("" +
-                "XOX\n" +
-                "OXO\n" +
-                "X  ",
+                        "XOX\n" +
+                        "OXO\n" +
+                        "X  ",
                 new RowByRowStrategy(), new RowByRowStrategy());
     }
 
     @Test
     void testCircularVsRowByRow() {
         testCase("" +
-                "OXO\n" +
-                "OXX\n" +
-                "O X",
+                        "OXO\n" +
+                        "OXX\n" +
+                        "O X",
                 new CircularStrategy(), new RowByRowStrategy());
     }
 
     @Test
     void testESVsRowByRow() {
         testCase("" +
-                "OOO\n" +
-                "  X\n" +
-                " XX",
+                        "OOO\n" +
+                        "  X\n" +
+                        " XX",
                 new EastSouthStrategy(), new RowByRowStrategy());
     }
 

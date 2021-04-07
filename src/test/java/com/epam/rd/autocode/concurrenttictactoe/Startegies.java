@@ -11,7 +11,6 @@ class NorthWestStrategy implements PlayerStrategy {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (i + j == dia && table[i][j] == ' ') {
-                        System.out.println(i + " " + j + " " + mark);
                         return new Move(i, j);
                     }
                 }
@@ -29,7 +28,6 @@ class EastSouthStrategy implements PlayerStrategy {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (i + j == dia && table[i][j] == ' ') {
-                        System.out.println(i + " " + j + " " + mark);
                         return new Move(i, j);
                     }
                 }
@@ -55,7 +53,6 @@ class CircularStrategy implements PlayerStrategy {
                 new Move(1, 0)
         )
                 .filter(move -> table[move.row][move.column] == ' ')
-                .peek(move -> System.out.println(move.row + " " + move.column + " " + mark))
                 .findFirst().orElse(null);
     }
 }
@@ -76,7 +73,6 @@ class RowByRowStrategy implements PlayerStrategy {
                 new Move(2, 2)
         )
                 .filter(move -> table[move.row][move.column] == ' ')
-                .peek(move -> System.out.println(move.row + " " + move.column + " " + mark))
                 .findFirst().orElse(null);
     }
 }
